@@ -27,20 +27,15 @@ public class OrderItem {
 	
 	private Integer quantity;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_id")
-	private Order order;
-	
 	public OrderItem() {
 	}
 
-	public OrderItem(Long id, String sku, Double price, Integer quantity, Order order) {
+	public OrderItem(Long id, String sku, Double price, Integer quantity) {
 		super();
 		this.id = id;
 		this.sku = sku;
 		this.price = price;
 		this.quantity = quantity;
-		this.order = order;
 	}
 
 	public Long getId() {
@@ -75,22 +70,13 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
 	@Override
 	public String toString() {
-		return "OrderItem [id=" + id + ", sku=" + sku + ", price=" + price + ", quantity=" + quantity + ", order="
-				+ order + "]";
+		return "OrderItem [id=" + id + ", sku=" + sku + ", price=" + price + ", quantity=" + quantity + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, order, price, quantity, sku);
+		return Objects.hash(id, price, quantity, sku);
 	}
 }

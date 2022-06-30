@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,18 +33,9 @@ public class Order {
 	@Column(name = "total_cost")
 	private Double totalCost;
 	
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonBackReference
+	@OneToMany(targetEntity = OrderItem.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	private List<OrderItem> orderItemsList;
-	
-	public void addOrderItem(OrderItem orderItem){
-		orderItem.setOrder(this);
-		orderItemsList.add(orderItem);
-    }
-    public void removeOrderItem(OrderItem orderItem){
-    	orderItem.setOrder(null);
-    	orderItemsList.remove(orderItem);
-    }
 	
 	public Order() {
 	}
